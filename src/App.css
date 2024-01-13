@@ -1,0 +1,172 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+.signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(#6892aa, #314b5a);
+  padding-inline: 50px;
+  padding-block: 15px;
+  border-radius: 15px;
+}
+
+.signupform {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  margin-left: 8%;
+}
+
+input {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #17181a4f;
+}
+
+.signupbutton {
+  background-color: #2a3841;
+  border-color:rgba(43, 58, 66, 0.459)2;
+}
+
+
+.logo {
+  border-radius: 15px;
+  transition: transform 200ms;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+}
+
+.login-link a {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.navbar a {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+.open-account-button {
+  margin-top: 2%;
+  background-image: linear-gradient(#5392c5,#2b4e5f);
+  transition: transform 200ms;
+  
+}
+
+.open-account-button a {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.open-account-button:hover {
+  transform: scale(1.05);
+}
+
+
+.open-account-button:hover a {
+  color: white;
+}
+
+.error {
+  color: rgb(179, 47, 47)
+}
+
+
+.accounts {
+  background-color: white;
+  border-radius: 12px;
+  padding-inline: 45px;
+  padding-block: 15px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+
+
+.account {
+  background-color: whitesmoke;
+  border-radius: 12px;
+  padding-inline: 45px;
+  padding-block: 5px;
+  margin-top: 15px;
+  transition: transform 200ms;
+}
+
+.account:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.account-name {
+  color: #5981a0;
+}
+
+.balance {
+  color: #364d5f;
+}
+
+.add-account-button {
+  background-color:  #5981a0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: transform 200ms;
+  
+}
+
+.add-account-button:hover {
+  transform: scale(1.1);
+}
+
+.account-offers {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+}
