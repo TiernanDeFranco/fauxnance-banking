@@ -145,6 +145,15 @@ export const Transfer = () => {
         
 
       return (
+        <>
+
+        <nav className="navbar">
+        <div className="login-link">
+          <a href="/">Home</a>
+          <a href="/dashboard">Dashboard</a>
+        </div>
+      </nav>
+
         <div className='accounts'>
           {accountData && (
             <div key={accountData.id}>
@@ -192,6 +201,7 @@ export const Transfer = () => {
 
         
         </div>
+        </>
       );
 };
 
