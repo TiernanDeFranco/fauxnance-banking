@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { collection, getFirestore, doc, onSnapshot } from 'firebase/firestore';
+import {  getFirestore, doc, onSnapshot, updateDoc, getDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 interface BankArray {
-  accountID: number;
+  accountType: string;
   accountName: string;
   balance: number;
 }
@@ -16,10 +17,16 @@ interface AccountData {
 }
 
 export const Dashboard = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [, setIsLoggedIn] = useState<boolean>(false);
   const navigate = useNavigate();
   const auth = getAuth();
   const [accountData, setAccountData] = useState<AccountData | null>(null);
+  const [selectedAccountIndex, setSelectedAccountIndex] = useState<number>(-1);
+
+  const [accountName, setAccountName] = useState<string>('');
+  const [error, setError] = useState<string>('');
+
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -72,32 +79,111 @@ export const Dashboard = () => {
     navigate('/open-new');
   };
 
+  const handleAccountClick = (index: number) => {
+   setSelectedAccountIndex(index);
+  };
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event?.preventDefault();
+    setError('');
+    const userUuid = auth.currentUser?.uid;
+    if (!userUuid) {
+        console.error("No user is logged in");
+        navigate('/login')
+        return;
+    }
+
+    const accountDocRef = doc(db, "accounts", userUuid); 
+
+
+    try {
+        const docSnap = await getDoc(accountDocRef);
+        if (docSnap.exists()) {
+            let bankAccounts = docSnap.data().bankAccounts;
+
+            bankAccounts[selectedAccountIndex] = {
+                ...bankAccounts[selectedAccountIndex],
+                accountName: accountName
+            };
+
+            await updateDoc(accountDocRef, {
+                bankAccounts: bankAccounts
+            });
+
+            setAccountName('');
+            setSelectedAccountIndex(-1);
+        } else {
+            throw new Error("No such document!");
+        }
+    } catch (error) {
+        console.error("Error updating document: ", error);
+        setError('Error Renaming Account');
+    }
+};
+
   return (
     <div>
-        <img className='logo' src='./assets/fauxnancebanking.png' width={250} height={250}/>
+    <img className='logo' src='./assets/fauxnancebanking.png' width={250} height={250}/>
 
-      <nav className="navbar">
-        <div className="login-link">
-          <a href="/">Home</a>
-          <a href="/" onClick={handleLogout}>Log Out</a>
-        </div>
-      </nav>
+  <nav className="navbar">
+    <div className="login-link">
+      <a href="/">Home</a>
+      <a href="/" onClick={handleLogout}>Log Out</a>
+    </div>
+  </nav>
 
-        <div className='accounts'>
-      {accountData && (
-        <div key={accountData.id}>
-          <h2 className='account-name'>Accounts</h2>
-          <button className='add-account-button' onClick={handleCreateNew}>Add New Account</button>
-          {accountData.bankAccounts.map((bankAccount) => (
-            <div className='account' key={bankAccount.accountID}>
-              <h3 className='account-name'>{bankAccount.accountName}</h3>
-              <p className='balance'>${bankAccount.balance.toLocaleString()}</p>
+  {selectedAccountIndex === -1 &&
+    <div className='accounts'>
+        {accountData && (
+            <div key={accountData.id}>
+                <h2 className='account-name'>Accounts</h2>
+                <div>
+                <button className='add-account-button' onClick={handleCreateNew}>Add New Account</button>
+                </div>
+                <button className='add-account-button' onClick={() => {navigate('/transfer')}}>Make Internal Transfer</button>
+                {accountData.bankAccounts.map((bankAccount, index) => (
+                    <div 
+                        className='account' 
+                        key={index} 
+                        onClick={() => handleAccountClick(index)}
+                    >
+                        <h3 className='account-name'>{bankAccount.accountName}</h3>
+                        <p className='balance'>${bankAccount.balance.toLocaleString()}</p>
+                    </div>
+                ))}
             </div>
-          ))}
-         
-        </div>
-      )}
+        )}
+    </div>
+    }
+
+    {selectedAccountIndex !== -1 &&
+    <div>
+    <button className='add-account-button' onClick={() => {setSelectedAccountIndex(-1)}}>Go Back</button>
+    <div className='accounts'>
+        
+    <div>
+       <h2 className='account-name'>{accountData?.bankAccounts[selectedAccountIndex].accountName}</h2>
+       <h3 className='balance'>${accountData?.bankAccounts[selectedAccountIndex].balance.toLocaleString()}</h3>
+       <h4 className='error'>{error}</h4>
+       <form className='signupform' onSubmit={handleSubmit}>
+        <input
+          type="accountname"
+          placeholder='New Account Name'
+          id="accountname"
+          value={accountName}
+          onChange={(e) => setAccountName(e.target.value)}
+          required
+        />
+        <button className='signupbutton' type="submit">Change Name</button>
+      </form>
+    </div>
+    
     </div>
     </div>
-  );
+}
+
+    
+    </div>
+);
 };

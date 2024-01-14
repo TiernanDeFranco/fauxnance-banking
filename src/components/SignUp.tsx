@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { signUp } from '../auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -31,7 +31,7 @@ const SignUp = () => {
     let additionalData = {
       email: email,
       bankAccounts: [
-        { accountID: 0, accountName: 'HYSA', balance: 10_000 }
+        { accountType: 'HYSA', accountName: 'High Yield Savings', balance: 10_000 }
       ]
     }
     handleSignUp(email, password, additionalData);
@@ -48,6 +48,7 @@ const SignUp = () => {
       </nav>
 
       <img className='logo' src='./assets/fauxnancebanking.png' width={350} height={350} alt="Fauxnance Banking Logo"/>
+      
       <form className='signupform' onSubmit={onSubmit}>
         <input
           type="email"

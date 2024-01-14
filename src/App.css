@@ -166,7 +166,43 @@ input {
 .account-offers {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #364d5f;
   border-radius: 12px;
   padding: 15px;
+}
+
+.transfer-dropdowns {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column; 
+  margin-top: 20px;
+  text-align: center;
+}
+
+.transfer-dropdowns div {
+  margin-bottom: 15px;
+}
+
+
+.transfer-dropdowns label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.transfer-dropdowns select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #364d5f;
+  cursor: pointer;
+}
+
+.transfer-dropdowns select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.transfer-input {
+  margin-bottom: 5px;
 }
