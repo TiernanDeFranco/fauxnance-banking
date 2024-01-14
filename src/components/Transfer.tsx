@@ -161,7 +161,7 @@ export const Transfer = () => {
                 
               <div className='transfer-dropdowns'>
                 <div>
-                  <label>From: </label>
+                  <label className='account-name'>From: </label>
                   <select value={selectedAccountFrom} onChange={handleAccountFromChange}>
                     <option value="">Select an account</option>
                     {accountData.bankAccounts.map((bankAccount, index) => (
@@ -173,7 +173,7 @@ export const Transfer = () => {
                 </div>
     
                 <div>
-                  <label>To: </label>
+                <label className='account-name'>To: </label>
                   <select value={selectedAccountTo} onChange={handleAccountToChange}>
                     <option value="">Select an account</option>
                     {accountData.bankAccounts.map((bankAccount, index) => (
