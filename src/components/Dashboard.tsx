@@ -141,6 +141,9 @@ export const Dashboard = () => {
                 <div>
                 <button className='add-account-button' onClick={handleCreateNew}>Add New Account</button>
                 </div>
+                <div>
+                <button className='add-account-button' onClick={() => {navigate('/peerTransfer')}}>Send Money</button>
+                </div>
                 <button className='add-account-button' onClick={() => {navigate('/transfer')}}>Make Internal Transfer</button>
                 {accountData.bankAccounts.map((bankAccount, index) => (
                     <div 

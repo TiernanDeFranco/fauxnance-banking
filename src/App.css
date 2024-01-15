@@ -206,3 +206,9 @@ input {
 .transfer-input {
   margin-bottom: 5px;
 }
+
+@media (min-width: 768px) {
+  .navbar {
+      flex-direction: row;
+  }
+}

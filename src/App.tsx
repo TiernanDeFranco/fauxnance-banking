@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard'
 import { Login } from './components/Login'
 import { OpenNewAccount } from './components/OpenNewAccount'
 import { Transfer } from './components/Transfer'
+import { Peer } from './components/Peer'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Route path='/open-new' element={<OpenNewAccount />} />
       <Route path='/login' element={<Login />} />
       <Route path='/transfer' element={<Transfer/>}/>
+      <Route path='/peerTransfer' element={<Peer/>}/>
       </Routes>
     </BrowserRouter>
 
