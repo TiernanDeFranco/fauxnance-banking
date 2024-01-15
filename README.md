@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# Fauxnance Banking - Web-Based Finance Simulation App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Visit Fauxnance Banking](https://fauxnance-banking.netlify.app/)
 
-Currently, two official plugins are available:
+## Overview
+Fauxnance Banking is a dynamic web-based application that simulates a real-world banking environment. Designed to merge cutting-edge web development with a keen interest in finance, this app offers users a unique platform to explore and manage simulated financial transactions and accounts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Account Creation**: Users can sign up and create their own unique banking profiles.
+- **Simulated Sign-up Bonus**: New accounts are credited with a simulated $10,000 bonus, providing an authentic experience right from the start.
+- **Multiple Account Management**: The application supports various account types, allowing users to experience the management of diverse financial portfolios.
+- **Realistic Financial Transactions**: Features realistic financial operations such as:
+  - Internal account transfers.
+  - Peer-to-peer (P2P) transfers.
 
-## Expanding the ESLint configuration
+## Technologies Used
+- React
+- TypeScript
+- Vite
+- Firebase
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Note**: This project is a simulation and is intended for educational and demonstration purposes only.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
