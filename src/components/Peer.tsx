@@ -71,15 +71,6 @@ export const Peer = () => {
         setSelectedAccountFrom(event.target.value);
     };
 
-    const handleTransferAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        // Only update if the value is empty or a valid number
-        if (value === '' || /^\d*\.?\d*$/.test(value)) {
-          setTransferAmount(value);
-        }
-      };
-      
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError('');
