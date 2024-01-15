@@ -29,7 +29,7 @@ export const Transfer = () => {
     const [selectedAccountFrom, setSelectedAccountFrom] = useState<string>('');
     const [selectedAccountTo, setSelectedAccountTo] = useState<string>('');
 
-    const [transferAmount, setTransferAmount] = useState<number>(0);
+    const [transferAmount, setTransferAmount] = useState<string>('');
     const [error, setError] = useState<string>('');
 
 
@@ -85,7 +85,7 @@ export const Transfer = () => {
         event?.preventDefault();
         setError('');
 
-        if (transferAmount <= 0) {
+        if (+transferAmount <= 0) {
             setError('Amount must be greater than zero');
             return;
         }
@@ -120,12 +120,12 @@ export const Transfer = () => {
     
                 bankAccounts[fromAccountIndex] = {
                     ...bankAccounts[fromAccountIndex],
-                    balance: bankAccounts[fromAccountIndex].balance - transferAmount
+                    balance: bankAccounts[fromAccountIndex].balance - +transferAmount
                 };
     
                 bankAccounts[toAccountIndex] = {
                     ...bankAccounts[toAccountIndex],
-                    balance: bankAccounts[toAccountIndex].balance + transferAmount
+                    balance: bankAccounts[toAccountIndex].balance + +transferAmount
                 };
         
                 await updateDoc(accountDocRef, {
@@ -191,7 +191,7 @@ export const Transfer = () => {
           placeholder='$XXX'
           id="number"
           value={transferAmount}
-          onChange={(e) => setTransferAmount(+e.target.value)}
+          onChange={(e) => setTransferAmount(e.target.value)}
           required
         />
         <button className='signupbutton' type="submit">Transfer</button>

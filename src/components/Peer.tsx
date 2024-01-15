@@ -25,7 +25,7 @@ export const Peer = () => {
     const [accountData, setAccountData] = useState<AccountData | null>(null);
     const [selectedAccountFrom, setSelectedAccountFrom] = useState<string>('');
     const [recipientEmail, setRecipientEmail] = useState<string>('');
-    const [transferAmount, setTransferAmount] = useState<number>(0);
+    const [transferAmount, setTransferAmount] = useState<string>('');
     const [error, setError] = useState<string>('');
 
 
@@ -71,11 +71,20 @@ export const Peer = () => {
         setSelectedAccountFrom(event.target.value);
     };
 
+    const handleTransferAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        // Only update if the value is empty or a valid number
+        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+          setTransferAmount(value);
+        }
+      };
+      
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError('');
 
-        if (transferAmount <= 0) {
+        if (+transferAmount <= 0) {
             setError('Amount must be greater than zero');
             return;
         }
@@ -115,7 +124,7 @@ export const Peer = () => {
             let bankAccounts = docSnap.data().bankAccounts as BankArray[];
             const fromAccountIndex = bankAccounts.findIndex(acc => acc.accountName === selectedAccountFrom);
 
-            if (bankAccounts[fromAccountIndex].balance < transferAmount) {
+            if (bankAccounts[fromAccountIndex].balance < +transferAmount) {
                 setError('Insufficient funds in the source account');
                 return;
             }
@@ -132,11 +141,11 @@ export const Peer = () => {
                     const recipientAccountData = documentSnapshot.data() as AccountData;
             
                    
-                    bankAccounts[fromAccountIndex].balance -= transferAmount;
+                    bankAccounts[fromAccountIndex].balance -= +transferAmount;
                     await updateDoc(accountDocRef, { bankAccounts });
             
                     if (recipientAccountData.bankAccounts.length > 0) {
-                        recipientAccountData.bankAccounts[0].balance += transferAmount;
+                        recipientAccountData.bankAccounts[0].balance += +transferAmount;
                         const recipientDocRef = doc(db, "accounts", documentSnapshot.id);
                         await updateDoc(recipientDocRef, {
                             bankAccounts: recipientAccountData.bankAccounts
@@ -202,7 +211,7 @@ export const Peer = () => {
                                     type="number"
                                     placeholder='$XXX'
                                     value={transferAmount}
-                                    onChange={(e) => setTransferAmount(+e.target.value)}
+                                    onChange={(e) => setTransferAmount(e.target.value)}
                                     required
                                 />
                                 <button className='signupbutton' type="submit">Transfer</button>
